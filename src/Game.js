@@ -1,3 +1,5 @@
+import { INVALID_MOVE } from "boardgame.io/core";
+
 // Return true if `cells` is in a winning configuration.
 function IsVictory(cells) {
   const positions = [
@@ -24,6 +26,10 @@ function IsDraw(cells) {
   return cells.filter((c) => c === null).length === 0;
 }
 
+export function IsValidMove(G, id) {
+  return G.cells[id] === null;
+}
+
 export const TicTacToe = {
   setup: () => ({ cells: Array(9).fill(null) }),
   turn: {
@@ -31,6 +37,9 @@ export const TicTacToe = {
   },
   moves: {
     clickCell: (G, ctx, id) => {
+      if (!IsValidMove(G, id)) {
+        return INVALID_MOVE;
+      }
       G.cells[id] = ctx.currentPlayer;
     }
   },

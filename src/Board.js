@@ -1,7 +1,13 @@
 import React from "react";
 
+import { IsValidMove } from "./Game";
+
 export class TicTacToeBoard extends React.Component {
   onClick(id) {
+    if (!IsValidMove(this.props.G, id)) {
+      alert("Invalid move!");
+      return;
+    }
     this.props.moves.clickCell(id);
   }
 
